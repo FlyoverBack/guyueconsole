@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.banner.dao.BannerInfoDao">
+
+	<select id="get" resultType="com.bootdo.banner.domain.BannerInfoDO">
+		select `id`,`title`,`banner_img_url`,`detail_img_url`,`redirect_url`,`order_num`,`create_time`,`begin_time`,`end_time`,`bz1` from banner_info where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.banner.domain.BannerInfoDO">
+		select `id`,`title`,`banner_img_url`,`detail_img_url`,`redirect_url`,`order_num`,`create_time`,`begin_time`,`end_time`,`bz1` from banner_info
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="bannerImgUrl != null and bannerImgUrl != ''"> and banner_img_url = #{bannerImgUrl} </if>
+		  		  <if test="detailImgUrl != null and detailImgUrl != ''"> and detail_img_url = #{detailImgUrl} </if>
+		  		  <if test="redirectUrl != null and redirectUrl != ''"> and redirect_url = #{redirectUrl} </if>
+		  		  <if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="beginTime != null and beginTime != ''"> and begin_time = #{beginTime} </if>
+		  		  <if test="endTime != null and endTime != ''"> and end_time = #{endTime} </if>
+		  		  <if test="bz1 != null and bz1 != ''"> and bz1 = #{bz1} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from banner_info
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="bannerImgUrl != null and bannerImgUrl != ''"> and banner_img_url = #{bannerImgUrl} </if>
+		  		  <if test="detailImgUrl != null and detailImgUrl != ''"> and detail_img_url = #{detailImgUrl} </if>
+		  		  <if test="redirectUrl != null and redirectUrl != ''"> and redirect_url = #{redirectUrl} </if>
+		  		  <if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="beginTime != null and beginTime != ''"> and begin_time = #{beginTime} </if>
+		  		  <if test="endTime != null and endTime != ''"> and end_time = #{endTime} </if>
+		  		  <if test="bz1 != null and bz1 != ''"> and bz1 = #{bz1} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.banner.domain.BannerInfoDO" useGeneratedKeys="true" keyProperty="id">
+		insert into banner_info
+		(
+			`title`, 
+			`banner_img_url`, 
+			`detail_img_url`, 
+			`redirect_url`, 
+			`order_num`, 
+			`create_time`, 
+			`begin_time`, 
+			`end_time`, 
+			`bz1`
+		)
+		values
+		(
+			#{title}, 
+			#{bannerImgUrl}, 
+			#{detailImgUrl}, 
+			#{redirectUrl}, 
+			#{orderNum}, 
+			#{createTime}, 
+			#{beginTime}, 
+			#{endTime}, 
+			#{bz1}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.banner.domain.BannerInfoDO">
+		update banner_info 
+		<set>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="bannerImgUrl != null">`banner_img_url` = #{bannerImgUrl}, </if>
+			<if test="detailImgUrl != null">`detail_img_url` = #{detailImgUrl}, </if>
+			<if test="redirectUrl != null">`redirect_url` = #{redirectUrl}, </if>
+			<if test="orderNum != null">`order_num` = #{orderNum}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="beginTime != null">`begin_time` = #{beginTime}, </if>
+			<if test="endTime != null">`end_time` = #{endTime}, </if>
+			<if test="bz1 != null">`bz1` = #{bz1}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from banner_info where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from banner_info where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

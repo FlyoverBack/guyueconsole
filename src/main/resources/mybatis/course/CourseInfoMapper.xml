@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.course.dao.CourseInfoDao">
+
+	<select id="get" resultType="com.bootdo.course.domain.CourseInfoDO">
+		select `course_type`,`course_name`,`try_flag`,`bz2`,`club_type`,`coach_type`,`brief`,`detail`,`approp`,`course_time`,`suggest`,`info_pic`,`min_count`,`up_time`,`up_user`,`sale_pic` from course_info where course_type = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.course.domain.CourseInfoDO">
+		select `course_type`,`course_name`,`try_flag`,`bz2`,`club_type`,`coach_type`,`brief`,`detail`,`approp`,`course_time`,`suggest`,`info_pic`,`min_count`,`up_time`,`up_user`,`sale_pic` from course_info
+        <where>  
+		  		  <if test="courseType != null and courseType != ''"> and course_type = #{courseType} </if>
+		  		  <if test="courseName != null and courseName != ''"> and course_name = #{courseName} </if>
+		  		  <if test="tryFlag != null and tryFlag != ''"> and try_flag = #{tryFlag} </if>
+		  		  <if test="bz2 != null and bz2 != ''"> and bz2 = #{bz2} </if>
+		  		  <if test="clubType != null and clubType != ''"> and club_type = #{clubType} </if>
+		  		  <if test="coachType != null and coachType != ''"> and coach_type = #{coachType} </if>
+		  		  <if test="brief != null and brief != ''"> and brief = #{brief} </if>
+		  		  <if test="detail != null and detail != ''"> and detail = #{detail} </if>
+		  		  <if test="approp != null and approp != ''"> and approp = #{approp} </if>
+		  		  <if test="courseTime != null and courseTime != ''"> and course_time = #{courseTime} </if>
+		  		  <if test="suggest != null and suggest != ''"> and suggest = #{suggest} </if>
+		  		  <if test="infoPic != null and infoPic != ''"> and info_pic = #{infoPic} </if>
+		  		  <if test="minCount != null and minCount != ''"> and min_count = #{minCount} </if>
+		  		  <if test="upTime != null and upTime != ''"> and up_time = #{upTime} </if>
+		  		  <if test="upUser != null and upUser != ''"> and up_user = #{upUser} </if>
+		  		  <if test="salePic != null and salePic != ''"> and sale_pic = #{salePic} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by course_type desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from course_info
+		 <where>  
+		  		  <if test="courseType != null and courseType != ''"> and course_type = #{courseType} </if>
+		  		  <if test="courseName != null and courseName != ''"> and course_name = #{courseName} </if>
+		  		  <if test="tryFlag != null and tryFlag != ''"> and try_flag = #{tryFlag} </if>
+		  		  <if test="bz2 != null and bz2 != ''"> and bz2 = #{bz2} </if>
+		  		  <if test="clubType != null and clubType != ''"> and club_type = #{clubType} </if>
+		  		  <if test="coachType != null and coachType != ''"> and coach_type = #{coachType} </if>
+		  		  <if test="brief != null and brief != ''"> and brief = #{brief} </if>
+		  		  <if test="detail != null and detail != ''"> and detail = #{detail} </if>
+		  		  <if test="approp != null and approp != ''"> and approp = #{approp} </if>
+		  		  <if test="courseTime != null and courseTime != ''"> and course_time = #{courseTime} </if>
+		  		  <if test="suggest != null and suggest != ''"> and suggest = #{suggest} </if>
+		  		  <if test="infoPic != null and infoPic != ''"> and info_pic = #{infoPic} </if>
+		  		  <if test="minCount != null and minCount != ''"> and min_count = #{minCount} </if>
+		  		  <if test="upTime != null and upTime != ''"> and up_time = #{upTime} </if>
+		  		  <if test="upUser != null and upUser != ''"> and up_user = #{upUser} </if>
+		  		  <if test="salePic != null and salePic != ''"> and sale_pic = #{salePic} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.course.domain.CourseInfoDO">
+		insert into course_info
+		(
+			`course_type`, 
+			`course_name`, 
+			`try_flag`, 
+			`bz2`, 
+			`club_type`, 
+			`coach_type`, 
+			`brief`, 
+			`detail`, 
+			`approp`, 
+			`course_time`, 
+			`suggest`, 
+			`info_pic`, 
+			`min_count`, 
+			`up_time`, 
+			`up_user`, 
+			`sale_pic`
+		)
+		values
+		(
+			#{courseType}, 
+			#{courseName}, 
+			#{tryFlag}, 
+			#{bz2}, 
+			#{clubType}, 
+			#{coachType}, 
+			#{brief}, 
+			#{detail}, 
+			#{approp}, 
+			#{courseTime}, 
+			#{suggest}, 
+			#{infoPic}, 
+			#{minCount}, 
+			#{upTime}, 
+			#{upUser}, 
+			#{salePic}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.course.domain.CourseInfoDO">
+		update course_info 
+		<set>
+			<if test="courseName != null">`course_name` = #{courseName}, </if>
+			<if test="tryFlag != null">`try_flag` = #{tryFlag}, </if>
+			<if test="bz2 != null">`bz2` = #{bz2}, </if>
+			<if test="clubType != null">`club_type` = #{clubType}, </if>
+			<if test="coachType != null">`coach_type` = #{coachType}, </if>
+			<if test="brief != null">`brief` = #{brief}, </if>
+			<if test="detail != null">`detail` = #{detail}, </if>
+			<if test="approp != null">`approp` = #{approp}, </if>
+			<if test="courseTime != null">`course_time` = #{courseTime}, </if>
+			<if test="suggest != null">`suggest` = #{suggest}, </if>
+			<if test="infoPic != null">`info_pic` = #{infoPic}, </if>
+			<if test="minCount != null">`min_count` = #{minCount}, </if>
+			<if test="upTime != null">`up_time` = #{upTime}, </if>
+			<if test="upUser != null">`up_user` = #{upUser}, </if>
+			<if test="salePic != null">`sale_pic` = #{salePic}</if>
+		</set>
+		where course_type = #{courseType}
+	</update>
+	
+	<delete id="remove">
+		delete from course_info where course_type = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from course_info where course_type in 
+		<foreach item="courseType" collection="array" open="(" separator="," close=")">
+			#{courseType}
+		</foreach>
+	</delete>
+
+</mapper>

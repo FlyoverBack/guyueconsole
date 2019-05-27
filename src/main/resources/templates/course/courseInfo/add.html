@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">课程类型（编号）：</label>
+								<div class="col-sm-8">
+									<input id="courseType" name="courseType" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">课程名称：</label>
+								<div class="col-sm-8">
+									<input id="courseName" name="courseName" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">课程类型：</label>
+								<div class="col-sm-8">
+									<input id="tryFlag" name="tryFlag" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">备注2：</label>
+								<div class="col-sm-8">
+									<input id="bz2" name="bz2" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">场地类型：</label>
+								<div class="col-sm-8">
+									<input id="clubType" name="clubType" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">教练类型：</label>
+								<div class="col-sm-8">
+									<input id="coachType" name="coachType" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">课程简介：</label>
+								<div class="col-sm-8">
+									<input id="brief" name="brief" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">课程详情：</label>
+								<div class="col-sm-8">
+									<input id="detail" name="detail" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">适宜人群：</label>
+								<div class="col-sm-8">
+									<input id="approp" name="approp" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">课程时间：</label>
+								<div class="col-sm-8">
+									<input id="courseTime" name="courseTime" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">课程建议：</label>
+								<div class="col-sm-8">
+									<input id="suggest" name="suggest" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">课程照片：</label>
+								<div class="col-sm-8">
+									<input id="infoPic" name="infoPic" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">起售数量：</label>
+								<div class="col-sm-8">
+									<input id="minCount" name="minCount" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">创建时间：</label>
+								<div class="col-sm-8">
+									<input id="upTime" name="upTime" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">创建人：</label>
+								<div class="col-sm-8">
+									<input id="upUser" name="upUser" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">售课照片：</label>
+								<div class="col-sm-8">
+									<input id="salePic" name="salePic" class="form-control" type="text">
+								</div>
+							</div>
+																					<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/course/courseInfo/add.js">
+	</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>欢迎页</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">古越运动后台管理系统</div>
+    <div style="padding: 10px 0 20px 10px;">
+        <h3>&nbsp;&nbsp;&nbsp;项目介绍</h3>
+        <ul>
+            <li>Springboot作为基础框架，使用mybatis作为持久层框架</li>
+            <li>使用官方推荐的thymeleaf做为模板引擎，shiro作为安全框架</li>
+            <li>极简配置，一键前后台代码生成</li>
+        </ul>
+
+        <h3>&nbsp;&nbsp;&nbsp;获取源码</h3>
+        <ul>
+            <li>Github地址：<a href="https://github.com" th:href="@{https://github.com/}" target="_blank">https://github.com</a></li>
+        </ul>
+
+        <h3>&nbsp;&nbsp;&nbsp;开发微信群</h3>
+        <ul>
+            <li>扫描图片加群：<a id="weixin" style="background-image:url('/favicon.ico')" class="btn" data-toggle="popover" data-placement="bottom"></a></li>
+        </ul>
+    </div>
+</div>
+<script src="/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/bootstrap.min.js?v=3.3.6"></script>
+<script>
+    $('#weixin').popover({
+        trigger : 'hover',//鼠标以上时触发弹出提示框
+        html:true,//开启html 为true的话，data-content里就能放html代码了
+        content:"<img style='height: 170px;width: 170px' src='/img/prowx.jpg'>"
+    });
+</script>
+</body>
+</html>
