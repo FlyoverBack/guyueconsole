@@ -13,6 +13,8 @@ import org.apache.commons.lang.WordUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +27,8 @@ import java.util.zip.ZipOutputStream;
  * 代码生成器   工具类
  */
 public class GenUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(GenUtils.class);
 
 
     public static List<String> getTemplates() {
@@ -84,6 +88,7 @@ public class GenUtils {
 
             //是否主键
             if ("PRI".equalsIgnoreCase(column.get("columnKey")) && tableDO.getPk() == null) {
+                logger.info("当前表："+column.get("columnName")+"，主键为："+column.get("columnKey"));
                 tableDO.setPk(columnDO);
             }
 

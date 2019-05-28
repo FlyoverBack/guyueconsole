@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.bootdo.common.utils.CommParams;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,9 @@ import com.bootdo.common.utils.R;
 @Controller
 @RequestMapping("/course/courseInfo")
 public class CourseInfoController {
+
+	private static final Logger logger = LoggerFactory.getLogger(CourseInfoController.class);
+
 	@Autowired
 	private CourseInfoService courseInfoService;
 	
@@ -67,6 +72,7 @@ public class CourseInfoController {
 	@RequiresPermissions("course:courseInfo:edit")
 	String edit(@PathVariable("courseType") String courseType,Model model){
 		CourseInfoDO courseInfo = courseInfoService.get(courseType);
+		logger.info("--------------------"+courseInfo.toString());
 		model.addAttribute("courseInfo", courseInfo);
 	    return "course/courseInfo/edit";
 	}
