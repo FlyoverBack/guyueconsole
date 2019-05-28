@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.member.dao.MemberDao">
+
+	<select id="get" resultType="com.bootdo.member.domain.MemberDO">
+		select `mem_Id`,`name`,`no`,`nick_name`,`age`,`tel`,`height`,`weight`,`birthday`,`sex`,`icon`,`type` from member where mem_Id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.member.domain.MemberDO">
+		select `mem_Id`,`name`,`no`,`nick_name`,`age`,`tel`,`height`,`weight`,`birthday`,`sex`,`icon`,`type` from member
+        <where>  
+		  		  <if test="memId != null and memId != ''"> and mem_Id = #{memId} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="no != null and no != ''"> and no = #{no} </if>
+		  		  <if test="nickName != null and nickName != ''"> and nick_name = #{nickName} </if>
+		  		  <if test="age != null and age != ''"> and age = #{age} </if>
+		  		  <if test="tel != null and tel != ''"> and tel = #{tel} </if>
+		  		  <if test="height != null and height != ''"> and height = #{height} </if>
+		  		  <if test="weight != null and weight != ''"> and weight = #{weight} </if>
+		  		  <if test="birthday != null and birthday != ''"> and birthday = #{birthday} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="icon != null and icon != ''"> and icon = #{icon} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by mem_Id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from member
+		 <where>  
+		  		  <if test="memId != null and memId != ''"> and mem_Id = #{memId} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="no != null and no != ''"> and no = #{no} </if>
+		  		  <if test="nickName != null and nickName != ''"> and nick_name = #{nickName} </if>
+		  		  <if test="age != null and age != ''"> and age = #{age} </if>
+		  		  <if test="tel != null and tel != ''"> and tel = #{tel} </if>
+		  		  <if test="height != null and height != ''"> and height = #{height} </if>
+		  		  <if test="weight != null and weight != ''"> and weight = #{weight} </if>
+		  		  <if test="birthday != null and birthday != ''"> and birthday = #{birthday} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="icon != null and icon != ''"> and icon = #{icon} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.member.domain.MemberDO">
+		insert into member
+		(
+			`mem_Id`, 
+			`name`, 
+			`no`, 
+			`nick_name`, 
+			`age`, 
+			`tel`, 
+			`height`, 
+			`weight`, 
+			`birthday`, 
+			`sex`, 
+			`icon`, 
+			`type`
+		)
+		values
+		(
+			#{memId}, 
+			#{name}, 
+			#{no}, 
+			#{nickName}, 
+			#{age}, 
+			#{tel}, 
+			#{height}, 
+			#{weight}, 
+			#{birthday}, 
+			#{sex}, 
+			#{icon}, 
+			#{type}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.member.domain.MemberDO">
+		update member 
+		<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="no != null">`no` = #{no}, </if>
+			<if test="nickName != null">`nick_name` = #{nickName}, </if>
+			<if test="age != null">`age` = #{age}, </if>
+			<if test="tel != null">`tel` = #{tel}, </if>
+			<if test="height != null">`height` = #{height}, </if>
+			<if test="weight != null">`weight` = #{weight}, </if>
+			<if test="birthday != null">`birthday` = #{birthday}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="icon != null">`icon` = #{icon}, </if>
+			<if test="type != null">`type` = #{type}</if>
+		</set>
+		where mem_Id = #{memId}
+	</update>
+	
+	<delete id="remove">
+		delete from member where mem_Id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from member where mem_Id in 
+		<foreach item="memId" collection="array" open="(" separator="," close=")">
+			#{memId}
+		</foreach>
+	</delete>
+
+</mapper>

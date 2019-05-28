@@ -3,6 +3,7 @@ package com.bootdo.member.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.bootdo.common.utils.CommParams;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -48,6 +49,9 @@ public class MemberController {
 		//查询列表数据
         Query query = new Query(params);
 		List<MemberDO> memberList = memberService.list(query);
+		for(MemberDO memberDO:memberList){
+			memberDO.setIcon(CommParams.WEB_URL+memberDO.getIcon().replace("/app/test",""));
+		}
 		int total = memberService.count(query);
 		PageUtils pageUtils = new PageUtils(memberList, total);
 		return pageUtils;
