@@ -11,12 +11,12 @@ import org.apache.ibatis.annotations.Mapper;
  * VIEW
  * @author ybbbbbbb
  * @email ybbbbbbb@qq.com
- * @date 2019-06-11 17:05:57
+ * @date 2019-06-20 23:18:01
  */
 @Mapper
 public interface CoachClubDao {
 
-	CoachClubDO get(String coachName);
+	CoachClubDO get(String coachId);
 	
 	List<CoachClubDO> list(Map<String, Object> map);
 	
@@ -26,7 +26,7 @@ public interface CoachClubDao {
 	
 	int update(CoachClubDO coachClub);
 	
-	int remove(String coach_name);
+	int remove(String coach_id);
 	
-	int batchRemove(String[] coachNames);
+	int batchRemove(String[] coachIds);
 }

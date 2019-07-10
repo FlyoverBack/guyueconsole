@@ -10,11 +10,11 @@ import java.util.Map;
  * 
  * @author ybbbbbbb
  * @email ybbbbbbb@qq.com
- * @date 2019-06-11 17:05:57
+ * @date 2019-06-20 23:18:01
  */
 public interface CoachClubService {
 	
-	CoachClubDO get(String coachName);
+	CoachClubDO get(String coachId);
 	
 	List<CoachClubDO> list(Map<String, Object> map);
 	
@@ -24,7 +24,7 @@ public interface CoachClubService {
 	
 	int update(CoachClubDO coachClub);
 	
-	int remove(String coachName);
+	int remove(String coachId);
 	
-	int batchRemove(String[] coachNames);
+	int batchRemove(String[] coachIds);
 }

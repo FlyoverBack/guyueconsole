@@ -9,8 +9,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 
- * @author chglee
- * @email 1992lcg@163.com
+ * @author ybbbbbb
+ * @email ybbbbbb@qq.com
  * @date 2017-10-03 15:45:42
  */
 @Mapper

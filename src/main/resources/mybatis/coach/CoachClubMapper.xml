@@ -4,12 +4,13 @@
 <mapper namespace="com.bootdo.coach.dao.CoachClubDao">
 
 	<select id="get" resultType="com.bootdo.coach.domain.CoachClubDO">
-		select `coach_name`,`tel`,`nick_name`,`type`,`club_name`,`status`,`registration_time` from v_coach_club where coach_name = #{value}
+		select `coach_id`,`coach_name`,`tel`,`nick_name` ,`type`,group_concat(`club_name`) as `club_name`,`status`,`registration_time` from v_coach_club where coach_id = #{value}
 	</select>
 
 	<select id="list" resultType="com.bootdo.coach.domain.CoachClubDO">
-		select `coach_name`,`tel`,`nick_name`,`type`,`club_name`,`status`,`registration_time` from v_coach_club
+		select `coach_id`,`coach_name`,`tel`,`nick_name`,`type`,group_concat(`club_name`) as `club_name`,`status`,`registration_time` from v_coach_club
         <where>  
+		  		  <if test="coachId != null and coachId != ''"> and coach_id = #{coachId} </if>
 		  		  <if test="coachName != null and coachName != ''"> and coach_name = #{coachName} </if>
 		  		  <if test="tel != null and tel != ''"> and tel = #{tel} </if>
 		  		  <if test="nickName != null and nickName != ''"> and nick_name = #{nickName} </if>
@@ -18,12 +19,13 @@
 		  		  <if test="status != null and status != ''"> and status = #{status} </if>
 		  		  <if test="registrationTime != null and registrationTime != ''"> and registration_time = #{registrationTime} </if>
 		  		</where>
+		group by `coach_id`
         <choose>
             <when test="sort != null and sort.trim() != ''">
                 order by ${sort} ${order}
             </when>
 			<otherwise>
-                order by coach_name desc
+                order by coach_id desc
 			</otherwise>
         </choose>
 		<if test="offset != null and limit != null">
@@ -34,6 +36,7 @@
  	<select id="count" resultType="int">
 		select count(*) from v_coach_club
 		 <where>  
+		  		  <if test="coachId != null and coachId != ''"> and coach_id = #{coachId} </if>
 		  		  <if test="coachName != null and coachName != ''"> and coach_name = #{coachName} </if>
 		  		  <if test="tel != null and tel != ''"> and tel = #{tel} </if>
 		  		  <if test="nickName != null and nickName != ''"> and nick_name = #{nickName} </if>
@@ -47,6 +50,7 @@
 	<insert id="save" parameterType="com.bootdo.coach.domain.CoachClubDO">
 		insert into v_coach_club
 		(
+			`coach_id`, 
 			`coach_name`, 
 			`tel`, 
 			`nick_name`, 
@@ -57,6 +61,7 @@
 		)
 		values
 		(
+			#{coachId}, 
 			#{coachName}, 
 			#{tel}, 
 			#{nickName}, 
@@ -70,6 +75,7 @@
 	<update id="update" parameterType="com.bootdo.coach.domain.CoachClubDO">
 		update v_coach_club 
 		<set>
+			<if test="coachName != null">`coach_name` = #{coachName}, </if>
 			<if test="tel != null">`tel` = #{tel}, </if>
 			<if test="nickName != null">`nick_name` = #{nickName}, </if>
 			<if test="type != null">`type` = #{type}, </if>
@@ -77,17 +83,17 @@
 			<if test="status != null">`status` = #{status}, </if>
 			<if test="registrationTime != null">`registration_time` = #{registrationTime}</if>
 		</set>
-		where coach_name = #{coachName}
+		where coach_id = #{coachId}
 	</update>
 	
 	<delete id="remove">
-		delete from v_coach_club where coach_name = #{value}
+		delete from v_coach_club where coach_id = #{value}
 	</delete>
 	
 	<delete id="batchRemove">
-		delete from v_coach_club where coach_name in 
-		<foreach item="coachName" collection="array" open="(" separator="," close=")">
-			#{coachName}
+		delete from v_coach_club where coach_id in 
+		<foreach item="coachId" collection="array" open="(" separator="," close=")">
+			#{coachId}
 		</foreach>
 	</delete>
 

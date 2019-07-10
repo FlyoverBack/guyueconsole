@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author chglee
- * @email 1992lcg@163.com
+ * @author ybbbbbb
+ * @email ybbbbbb@qq.com
  * @date 2017-09-25 15:09:21
  */
 public class TaskDO implements Serializable {

@@ -10,11 +10,13 @@ import java.util.Date;
  * 
  * @author ybbbbbbb
  * @email ybbbbbbb@qq.com
- * @date 2019-06-11 17:05:57
+ * @date 2019-06-20 23:18:01
  */
 public class CoachClubDO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	//教练ID
+	private String coachId;
 	//姓名
 	private String coachName;
 	//电话
@@ -30,6 +32,18 @@ public class CoachClubDO implements Serializable {
 	//注册时间
 	private Date registrationTime;
 
+	/**
+	 * 设置：教练ID
+	 */
+	public void setCoachId(String coachId) {
+		this.coachId = coachId;
+	}
+	/**
+	 * 获取：教练ID
+	 */
+	public String getCoachId() {
+		return coachId;
+	}
 	/**
 	 * 设置：姓名
 	 */

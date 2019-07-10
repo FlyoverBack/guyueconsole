@@ -3,61 +3,106 @@
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
-	<div class="wrapper wrapper-content ">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="ibox float-e-margins">
-					<div class="ibox-content">
-						<form class="form-horizontal m-t" id="signupForm">
-							<div class="form-group">	
-								<label class="col-sm-3 control-label">电话：</label>
-								<div class="col-sm-8">
-									<input id="tel" name="tel" class="form-control" type="text">
-								</div>
-							</div>
-														<div class="form-group">	
-								<label class="col-sm-3 control-label">昵称：</label>
-								<div class="col-sm-8">
-									<input id="nickName" name="nickName" class="form-control" type="text">
-								</div>
-							</div>
-														<div class="form-group">	
-								<label class="col-sm-3 control-label">教练类别：</label>
-								<div class="col-sm-8">
-									<input id="type" name="type" class="form-control" type="text">
-								</div>
-							</div>
-														<div class="form-group">	
-								<label class="col-sm-3 control-label">店名名称：</label>
-								<div class="col-sm-8">
-									<input id="clubName" name="clubName" class="form-control" type="text">
-								</div>
-							</div>
-														<div class="form-group">	
-								<label class="col-sm-3 control-label">状态：</label>
-								<div class="col-sm-8">
-									<input id="status" name="status" class="form-control" type="text">
-								</div>
-							</div>
-														<div class="form-group">	
-								<label class="col-sm-3 control-label">注册时间：</label>
-								<div class="col-sm-8">
-									<input id="registrationTime" name="registrationTime" class="form-control" type="text">
-								</div>
-							</div>
-																					<div class="form-group">
-								<div class="col-sm-8 col-sm-offset-3">
-									<button type="submit" class="btn btn-primary">提交</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-	</div>
-	</div>
-	<div th:include="include::footer"></div>
-	<script type="text/javascript" src="/js/appjs/coach/coachClub/add.js">
-	</script>
+<div class="wrapper wrapper-content ">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="signupForm">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">教练ID：</label>
+                            <div class="col-sm-8">
+                                <input id="coachId" name="coachId" class="form-control" type="text" readonly>
+                            </div>
+                        </div><div class="form-group">
+                            <label class="col-sm-3 control-label">姓名：</label>
+                            <div class="col-sm-8">
+                                <input id="coachName" name="coachName" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">电话：</label>
+                            <div class="col-sm-8">
+                                <input id="tel" name="tel" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">昵称：</label>
+                            <div class="col-sm-8">
+                                <input id="nickName" name="nickName" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">身高：</label>
+                            <div class="col-sm-8">
+                                <input id="height" name="height" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">体重：</label>
+                            <div class="col-sm-8">
+                                <input id="weight" name="weight" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">生日：</label>
+                            <div class="col-sm-8 gg-formDetail">
+                                <input type="text" class="laydate-icon layer-date form-control" id="birthday" name="birthday" placeholder="请选择日期"
+                                       onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;" readonly="readonly"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">性别：</label>
+                            <div class="radio i-checks">
+                                <label class="radio-inline" > <input
+                                        type="radio" name="sex" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">教练类别：</label>
+                            <div class="col-sm-8">
+                                <select data-placeholder="--选择类别--" name="type" id="type"
+                                        class="form-control chosen-select" tabindex="2" required>
+                                    <option value="">--选择类别--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <label class="col-sm-3 control-label">店名名称：</label>
+                            <div class="col-sm-8">
+                                <input id="clubName" name="clubName" class="form-control" type="text">
+                            </div>
+                        </div>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">状态：</label>
+                            <div class="col-sm-8">
+                                <select data-placeholder="--选择类别--" name="status" id="status"
+                                        class="form-control chosen-select" tabindex="2" required>
+                                    <option value="">--选择类别--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">注册时间：</label>
+                            <div class="col-sm-8 gg-formDetail">
+                                <input type="text" class="laydate-icon layer-date form-control" id="registrationTime" name="registrationTime" placeholder="请选择日期"
+                                       onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;" readonly="readonly"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-3">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript" src="/js/appjs/coach/coachClub/add.js">
+</script>
 </body>
 </html>

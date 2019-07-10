@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bootdo.system.dao.UserMapper" >
+
+  <sql id="Base_Column_List" >
+    id, user_name, password, chn, last_login, open_id,try_flag
+  </sql>
+
+    <select id="selectMaxId" resultType="java.lang.String">
+    select max(id)
+    from user
+    where id like CONCAT('%',date_format(now(), '%Y%m%d'),'%')
+    and type=#{type,jdbcType=INTEGER}
+    </select>
+</mapper>

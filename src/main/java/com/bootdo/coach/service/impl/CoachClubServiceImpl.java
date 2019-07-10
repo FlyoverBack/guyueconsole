@@ -18,8 +18,8 @@ public class CoachClubServiceImpl implements CoachClubService {
 	private CoachClubDao coachClubDao;
 	
 	@Override
-	public CoachClubDO get(String coachName){
-		return coachClubDao.get(coachName);
+	public CoachClubDO get(String coachId){
+		return coachClubDao.get(coachId);
 	}
 	
 	@Override
@@ -43,13 +43,13 @@ public class CoachClubServiceImpl implements CoachClubService {
 	}
 	
 	@Override
-	public int remove(String coachName){
-		return coachClubDao.remove(coachName);
+	public int remove(String coachId){
+		return coachClubDao.remove(coachId);
 	}
 	
 	@Override
-	public int batchRemove(String[] coachNames){
-		return coachClubDao.batchRemove(coachNames);
+	public int batchRemove(String[] coachIds){
+		return coachClubDao.batchRemove(coachIds);
 	}
 	
 }

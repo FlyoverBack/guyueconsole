@@ -3,7 +3,7 @@ package com.bootdo.activiti.domain;
 import java.util.Map;
 
 /**
- * @author bootdo 1992lcg@163.com
+ * @author bootdo ybbbbbb@qq.com
  */
 public class TaskDO {
     private  String taskId;

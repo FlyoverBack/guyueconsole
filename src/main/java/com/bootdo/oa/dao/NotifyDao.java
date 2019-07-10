@@ -11,8 +11,8 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * 通知通告
  * 
- * @author chglee
- * @email 1992lcg@163.com
+ * @author ybbbbbb
+ * @email ybbbbbb@qq.com
  * @date 2017-10-05 17:11:16
  */
 @Mapper

@@ -2,30 +2,37 @@ package com.bootdo.common.controller;
 
 import com.bootdo.common.config.Constant;
 import com.bootdo.common.domain.DictDO;
+import com.bootdo.common.redis.utils.MyStartupRunner;
 import com.bootdo.common.service.DictService;
 import com.bootdo.common.utils.PageUtils;
 import com.bootdo.common.utils.Query;
 import com.bootdo.common.utils.R;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 字典表
- * @author chglee
- * @email 1992lcg@163.com
+ * @author ybbbbbb
+ * @email ybbbbbb@qq.com
  * @date 2017-09-29 18:28:07
  */
 
 @Controller
 @RequestMapping("/common/dict")
 public class DictController extends BaseController {
+
+	private static final Logger logger = LoggerFactory.getLogger(DictController.class);
+
 	@Autowired
 	private DictService dictService;
 
@@ -136,6 +143,11 @@ public class DictController extends BaseController {
 		return "common/dict/add";
 	}
 
+	/**
+	 *
+	 * @param type 传入需要查询的数据字典类型
+	 * @return
+	 */
 	@ResponseBody
 	@GetMapping("/list/{type}")
 	public List<DictDO> listByType(@PathVariable("type") String type) {
@@ -144,5 +156,28 @@ public class DictController extends BaseController {
 		map.put("type", type);
 		List<DictDO> dictList = dictService.list(map);
 		return dictList;
+	}
+
+	/**
+	 *	公共的查询数据字典类型方法
+	 * @param type 传入需要查询的数据字典类型
+	 * @return
+	 */
+	@ResponseBody
+	@GetMapping("/listfrominit/{type}")
+	public List<DictDO> listFromInit(@PathVariable("type") String type) {
+		// 查询列表数据
+		logger.info("本次传入数据字典关键字为：" + type);
+		List<DictDO> mapList = new ArrayList<>();
+		//Map<String,Object> dictMap = new HashMap<>();
+		List<DictDO> initDataList = MyStartupRunner.initDataList;
+		logger.info("查询 -" + type +"关键字后返回结果共计："+initDataList.size() + "条。");
+		for(DictDO dictDo: initDataList){
+			if(!dictDo.getType().isEmpty()&&dictDo.getType().equals(type)){
+				//dictMap.put(dictDo.getValue(),dictDo.getName());
+				mapList.add(dictDo);
+			}
+		}
+		return mapList;
 	}
 }
