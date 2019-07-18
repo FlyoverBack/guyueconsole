@@ -7,33 +7,26 @@
 		select `coach_Id`,`no`,`name`,`nick_name`,`age`,`tel`,`height`,`weight`,`birthday`,`sex`,`icon`,`score`,`comment`,`type`,`introduction`,`registration_time`,`status` from coach where coach_Id = #{value}
 	</select>
 
-	<select id="list" resultType="com.bootdo.coach.domain.CoachDO">
-		select `coach_Id`,`no`,`name`,`nick_name`,`age`,`tel`,`height`,`weight`,`birthday`,`sex`,`icon`,`score`,`comment`,`type`,`introduction`,`registration_time`,`status` from coach
-        <where>  
-		  		  <if test="coachId != null and coachId != ''"> and coach_Id = #{coachId} </if>
-		  		  <if test="no != null and no != ''"> and no = #{no} </if>
-		  		  <if test="name != null and name != ''"> and name = #{name} </if>
-		  		  <if test="nickName != null and nickName != ''"> and nick_name = #{nickName} </if>
-		  		  <if test="age != null and age != ''"> and age = #{age} </if>
-		  		  <if test="tel != null and tel != ''"> and tel = #{tel} </if>
-		  		  <if test="height != null and height != ''"> and height = #{height} </if>
-		  		  <if test="weight != null and weight != ''"> and weight = #{weight} </if>
-		  		  <if test="birthday != null and birthday != ''"> and birthday = #{birthday} </if>
-		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
-		  		  <if test="icon != null and icon != ''"> and icon = #{icon} </if>
-		  		  <if test="score != null and score != ''"> and score = #{score} </if>
-		  		  <if test="comment != null and comment != ''"> and comment = #{comment} </if>
-		  		  <if test="type != null and type != ''"> and type = #{type} </if>
-		  		  <if test="introduction != null and introduction != ''"> and introduction = #{introduction} </if>
-		  		  <if test="registrationTime != null and registrationTime != ''"> and registration_time = #{registrationTime} </if>
-		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+	<select id="list" resultType="map">
+		select a.coach_Id as coachId,a.name,a.nick_name as nickName,a.tel,a.registration_time as registrationTime,a.`type`,a.status,group_concat(distinct c.name) as clubName from coach as a
+		left join course as b on a.coach_id=b.coach_id
+		left join club as c on b.club_id=c.club_id
+        <where>
+		  		  <if test="coachId != null and coachId != ''"> and a.coach_Id = #{coachId} </if>
+		  		  <if test="name != null and name != ''"> and a.name = #{name} </if>
+		  		  <if test="nickName != null and nickName != ''"> and a.nick_name = #{nickName} </if>
+		  		  <if test="tel != null and tel != ''"> and a.tel = #{tel} </if>
+		  		  <if test="type != null and type != ''"> and a.type = #{type} </if>
+		  		  <if test="registrationTime != null and registrationTime != ''"> and a.registration_time = #{registrationTime} </if>
+		  		  <if test="status != null and status != ''"> and a.status = #{status} </if>
 		  		</where>
+		group by a.coach_Id
         <choose>
             <when test="sort != null and sort.trim() != ''">
                 order by ${sort} ${order}
             </when>
 			<otherwise>
-                order by coach_Id desc
+                order by a.coach_Id desc
 			</otherwise>
         </choose>
 		<if test="offset != null and limit != null">
@@ -43,27 +36,23 @@
 	
  	<select id="count" resultType="int">
 		select count(*) from coach
-		 <where>  
-		  		  <if test="coachId != null and coachId != ''"> and coach_Id = #{coachId} </if>
-		  		  <if test="no != null and no != ''"> and no = #{no} </if>
-		  		  <if test="name != null and name != ''"> and name = #{name} </if>
-		  		  <if test="nickName != null and nickName != ''"> and nick_name = #{nickName} </if>
-		  		  <if test="age != null and age != ''"> and age = #{age} </if>
-		  		  <if test="tel != null and tel != ''"> and tel = #{tel} </if>
-		  		  <if test="height != null and height != ''"> and height = #{height} </if>
-		  		  <if test="weight != null and weight != ''"> and weight = #{weight} </if>
-		  		  <if test="birthday != null and birthday != ''"> and birthday = #{birthday} </if>
-		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
-		  		  <if test="icon != null and icon != ''"> and icon = #{icon} </if>
-		  		  <if test="score != null and score != ''"> and score = #{score} </if>
-		  		  <if test="comment != null and comment != ''"> and comment = #{comment} </if>
-		  		  <if test="type != null and type != ''"> and type = #{type} </if>
-		  		  <if test="introduction != null and introduction != ''"> and introduction = #{introduction} </if>
-		  		  <if test="registrationTime != null and registrationTime != ''"> and registration_time = #{registrationTime} </if>
-		  		  <if test="status != null and status != ''"> and status = #{status} </if>
-		  		</where>
+		<where>
+			<if test="coachId != null and coachId != ''"> and a.coach_Id = #{coachId} </if>
+			<if test="name != null and name != ''"> and a.name = #{name} </if>
+			<if test="nickName != null and nickName != ''"> and a.nick_name = #{nickName} </if>
+			<if test="tel != null and tel != ''"> and a.tel = #{tel} </if>
+			<if test="type != null and type != ''"> and a.type = #{type} </if>
+			<if test="registrationTime != null and registrationTime != ''"> and a.registration_time = #{registrationTime} </if>
+			<if test="status != null and status != ''"> and a.status = #{status} </if>
+		</where>
 	</select>
-	 
+	 <select id="courseList" resultType="map">
+		select a.course_id as courseId,a.name as courseName,a.price as price,b.club_id as clubId,b.name as clubName
+		 from course a,club b where a.club_id=b.club_Id  and  a.coach_id=#{coach_id}
+	 </select>
+	<select id="courseCount">
+		select count(*) from course where coach_id=#{coach_id}
+	</select>
 	<insert id="save" parameterType="com.bootdo.coach.domain.CoachDO">
 		insert into coach
 		(

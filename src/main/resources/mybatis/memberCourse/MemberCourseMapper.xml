@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.memberCourse.dao.MemberCourseDao">
+
+    <select id="get" resultType="com.bootdo.memberCourse.domain.MemberCourseDO">
+		select `mem_Id`,`course_id`,`total_lesson`,`used`,`rem`,`status`,`bz1`,`kc_id`,`buy_time`,`buy_count` from member_course where kc_id = #{value}
+	</select>
+
+    <select id="list" resultType="com.bootdo.memberCourse.domain.MemberCourseDO">
+        select `mem_Id`,`course_id`,`total_lesson`,`used`,`rem`,`status`,`bz1`,`kc_id`,`buy_time`,`buy_count` from
+        member_course
+        <where>
+            <if test="memId != null and memId != ''">and mem_Id = #{memId}</if>
+            <if test="courseId != null and courseId != ''">and course_id = #{courseId}</if>
+            <if test="totalLesson != null and totalLesson != ''">and total_lesson = #{totalLesson}</if>
+            <if test="used != null and used != ''">and used = #{used}</if>
+            <if test="rem != null and rem != ''">and rem = #{rem}</if>
+            <if test="status != null and status != ''">and status = #{status}</if>
+            <if test="bz1 != null and bz1 != ''">and bz1 = #{bz1}</if>
+            <if test="kcId != null and kcId != ''">and kc_id = #{kcId}</if>
+            <if test="buyTime != null and buyTime != ''">and buy_time = #{buyTime}</if>
+            <if test="buyCount != null and buyCount != ''">and buy_count = #{buyCount}</if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by kc_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from member_course
+        <where>
+            <if test="memId != null and memId != ''">and mem_Id = #{memId}</if>
+            <if test="courseId != null and courseId != ''">and course_id = #{courseId}</if>
+            <if test="totalLesson != null and totalLesson != ''">and total_lesson = #{totalLesson}</if>
+            <if test="used != null and used != ''">and used = #{used}</if>
+            <if test="rem != null and rem != ''">and rem = #{rem}</if>
+            <if test="status != null and status != ''">and status = #{status}</if>
+            <if test="bz1 != null and bz1 != ''">and bz1 = #{bz1}</if>
+            <if test="kcId != null and kcId != ''">and kc_id = #{kcId}</if>
+            <if test="buyTime != null and buyTime != ''">and buy_time = #{buyTime}</if>
+            <if test="buyCount != null and buyCount != ''">and buy_count = #{buyCount}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.bootdo.memberCourse.domain.MemberCourseDO">
+		insert into member_course
+		(
+			`mem_Id`, 
+			`course_id`, 
+			`total_lesson`, 
+			`used`, 
+			`rem`, 
+			`status`, 
+			`bz1`, 
+			`kc_id`, 
+			`buy_time`, 
+			`buy_count`
+		)
+		values
+		(
+			#{memId}, 
+			#{courseId}, 
+			#{totalLesson}, 
+			#{used}, 
+			#{rem}, 
+			#{status}, 
+			#{bz1}, 
+			#{kcId}, 
+			#{buyTime}, 
+			#{buyCount}
+		)
+	</insert>
+
+    <update id="update" parameterType="com.bootdo.memberCourse.domain.MemberCourseDO">
+        update member_course
+        <set>
+            <if test="memId != null">`mem_Id` = #{memId},</if>
+            <if test="courseId != null">`course_id` = #{courseId},</if>
+            <if test="totalLesson != null">`total_lesson` = #{totalLesson},</if>
+            <if test="used != null">`used` = #{used},</if>
+            <if test="rem != null">`rem` = #{rem},</if>
+            <if test="status != null">`status` = #{status},</if>
+            <if test="bz1 != null">`bz1` = #{bz1},</if>
+            <if test="buyTime != null">`buy_time` = #{buyTime},</if>
+            <if test="buyCount != null">`buy_count` = #{buyCount}</if>
+        </set>
+        where kc_id = #{kcId}
+    </update>
+
+    <delete id="remove">
+		delete from member_course where kc_id = #{value}
+	</delete>
+
+    <delete id="batchRemove">
+        delete from member_course where kc_id in
+        <foreach item="kcId" collection="array" open="(" separator="," close=")">
+            #{kcId}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -171,13 +171,13 @@ public class DictController extends BaseController {
 		List<DictDO> mapList = new ArrayList<>();
 		//Map<String,Object> dictMap = new HashMap<>();
 		List<DictDO> initDataList = MyStartupRunner.initDataList;
-		logger.info("查询 -" + type +"关键字后返回结果共计："+initDataList.size() + "条。");
 		for(DictDO dictDo: initDataList){
 			if(!dictDo.getType().isEmpty()&&dictDo.getType().equals(type)){
 				//dictMap.put(dictDo.getValue(),dictDo.getName());
 				mapList.add(dictDo);
 			}
 		}
+		logger.info("查询 -" + type +"关键字后返回结果共计："+mapList.size() + "条。");
 		return mapList;
 	}
 }

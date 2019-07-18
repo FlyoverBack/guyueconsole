@@ -4,14 +4,14 @@ $().ready(function() {
 
 $.validator.setDefaults({
 	submitHandler : function() {
-		update();
+		save();
 	}
 });
-function update() {
+function save() {
 	$.ajax({
 		cache : true,
 		type : "POST",
-		url : "/coach/coachClub/update",
+		url : "/coach/coach/save",
 		data : $('#signupForm').serialize(),// 你的formid
 		async : false,
 		error : function(request) {
@@ -42,7 +42,7 @@ function validateRule() {
 		},
 		messages : {
 			name : {
-				required : icon + "请输入名字"
+				required : icon + "请输入姓名"
 			}
 		}
 	})

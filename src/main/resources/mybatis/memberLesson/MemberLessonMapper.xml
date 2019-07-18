@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.memberLesson.dao.MemberLessonDao">
+
+    <select id="get" resultType="com.bootdo.memberLesson.domain.MemberLessonDO">
+		select `mem_id`,`sale_id`,`seq_no`,`club_id`,`status`,`start_time_1`,`end_time_1`,`start_time_2`,`end_time_2`,`coach_id`,`real_club`,`real_coach`,`bz1`,`bz2`,`ch_time`,`kc_id`,`price` from member_lesson where mem_id = #{value}
+	</select>
+
+    <select id="list" resultType="com.bootdo.memberLesson.domain.MemberLessonDO">
+        select
+        `mem_id`,`sale_id`,`seq_no`,`club_id`,`status`,`start_time_1`,`end_time_1`,`start_time_2`,`end_time_2`,`coach_id`,`real_club`,`real_coach`,`bz1`,`bz2`,`ch_time`,`kc_id`,`price`
+        from member_lesson
+        <where>
+            <if test="memId != null and memId != ''">and mem_id = #{memId}</if>
+            <if test="saleId != null and saleId != ''">and sale_id = #{saleId}</if>
+            <if test="seqNo != null and seqNo != ''">and seq_no = #{seqNo}</if>
+            <if test="clubId != null and clubId != ''">and club_id = #{clubId}</if>
+            <if test="status != null and status != ''">and status = #{status}</if>
+            <if test="startTime1 != null and startTime1 != ''">and start_time_1 = #{startTime1}</if>
+            <if test="endTime1 != null and endTime1 != ''">and end_time_1 = #{endTime1}</if>
+            <if test="startTime2 != null and startTime2 != ''">and start_time_2 = #{startTime2}</if>
+            <if test="endTime2 != null and endTime2 != ''">and end_time_2 = #{endTime2}</if>
+            <if test="coachId != null and coachId != ''">and coach_id = #{coachId}</if>
+            <if test="realClub != null and realClub != ''">and real_club = #{realClub}</if>
+            <if test="realCoach != null and realCoach != ''">and real_coach = #{realCoach}</if>
+            <if test="bz1 != null and bz1 != ''">and bz1 = #{bz1}</if>
+            <if test="bz2 != null and bz2 != ''">and bz2 = #{bz2}</if>
+            <if test="chTime != null and chTime != ''">and ch_time = #{chTime}</if>
+            <if test="kcId != null and kcId != ''">and kc_id = #{kcId}</if>
+            <if test="price != null and price != ''">and price = #{price}</if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by mem_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from member_lesson
+        <where>
+            <if test="memId != null and memId != ''">and mem_id = #{memId}</if>
+            <if test="saleId != null and saleId != ''">and sale_id = #{saleId}</if>
+            <if test="seqNo != null and seqNo != ''">and seq_no = #{seqNo}</if>
+            <if test="clubId != null and clubId != ''">and club_id = #{clubId}</if>
+            <if test="status != null and status != ''">and status = #{status}</if>
+            <if test="startTime1 != null and startTime1 != ''">and start_time_1 = #{startTime1}</if>
+            <if test="endTime1 != null and endTime1 != ''">and end_time_1 = #{endTime1}</if>
+            <if test="startTime2 != null and startTime2 != ''">and start_time_2 = #{startTime2}</if>
+            <if test="endTime2 != null and endTime2 != ''">and end_time_2 = #{endTime2}</if>
+            <if test="coachId != null and coachId != ''">and coach_id = #{coachId}</if>
+            <if test="realClub != null and realClub != ''">and real_club = #{realClub}</if>
+            <if test="realCoach != null and realCoach != ''">and real_coach = #{realCoach}</if>
+            <if test="bz1 != null and bz1 != ''">and bz1 = #{bz1}</if>
+            <if test="bz2 != null and bz2 != ''">and bz2 = #{bz2}</if>
+            <if test="chTime != null and chTime != ''">and ch_time = #{chTime}</if>
+            <if test="kcId != null and kcId != ''">and kc_id = #{kcId}</if>
+            <if test="price != null and price != ''">and price = #{price}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.bootdo.memberLesson.domain.MemberLessonDO">
+		insert into member_lesson
+		(
+			`mem_id`, 
+			`sale_id`, 
+			`seq_no`, 
+			`club_id`, 
+			`status`, 
+			`start_time_1`, 
+			`end_time_1`, 
+			`start_time_2`, 
+			`end_time_2`, 
+			`coach_id`, 
+			`real_club`, 
+			`real_coach`, 
+			`bz1`, 
+			`bz2`, 
+			`ch_time`, 
+			`kc_id`, 
+			`price`
+		)
+		values
+		(
+			#{memId}, 
+			#{saleId}, 
+			#{seqNo}, 
+			#{clubId}, 
+			#{status}, 
+			#{startTime1}, 
+			#{endTime1}, 
+			#{startTime2}, 
+			#{endTime2}, 
+			#{coachId}, 
+			#{realClub}, 
+			#{realCoach}, 
+			#{bz1}, 
+			#{bz2}, 
+			#{chTime}, 
+			#{kcId}, 
+			#{price}
+		)
+	</insert>
+
+    <update id="update" parameterType="com.bootdo.memberLesson.domain.MemberLessonDO">
+        update member_lesson
+        <set>
+            <if test="saleId != null">`sale_id` = #{saleId},</if>
+            <if test="seqNo != null">`seq_no` = #{seqNo},</if>
+            <if test="clubId != null">`club_id` = #{clubId},</if>
+            <if test="status != null">`status` = #{status},</if>
+            <if test="startTime1 != null">`start_time_1` = #{startTime1},</if>
+            <if test="endTime1 != null">`end_time_1` = #{endTime1},</if>
+            <if test="startTime2 != null">`start_time_2` = #{startTime2},</if>
+            <if test="endTime2 != null">`end_time_2` = #{endTime2},</if>
+            <if test="coachId != null">`coach_id` = #{coachId},</if>
+            <if test="realClub != null">`real_club` = #{realClub},</if>
+            <if test="realCoach != null">`real_coach` = #{realCoach},</if>
+            <if test="bz1 != null">`bz1` = #{bz1},</if>
+            <if test="bz2 != null">`bz2` = #{bz2},</if>
+            <if test="chTime != null">`ch_time` = #{chTime},</if>
+            <if test="kcId != null">`kc_id` = #{kcId},</if>
+            <if test="price != null">`price` = #{price}</if>
+        </set>
+        where mem_id = #{memId}
+    </update>
+
+    <delete id="remove">
+		delete from member_lesson where mem_id = #{value}
+	</delete>
+
+    <delete id="batchRemove">
+        delete from member_lesson where mem_id in
+        <foreach item="memId" collection="array" open="(" separator="," close=")">
+            #{memId}
+        </foreach>
+    </delete>
+
+</mapper>

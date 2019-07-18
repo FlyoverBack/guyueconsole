@@ -23,10 +23,15 @@ public class CoachServiceImpl implements CoachService {
 	}
 	
 	@Override
-	public List<CoachDO> list(Map<String, Object> map){
+	public List<Map<String,Object>> list(Map<String, Object> map){
 		return coachDao.list(map);
 	}
-	
+
+	@Override
+	public List<Map<String, Object>> courseList(Map<String, Object> map) {
+		return coachDao.courseList(map);
+	}
+
 	@Override
 	public int count(Map<String, Object> map){
 		return coachDao.count(map);

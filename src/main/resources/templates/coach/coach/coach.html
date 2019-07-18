@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
+	  xmlns:hide="http://www.w3.org/1999/xhtml">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
@@ -9,10 +10,10 @@
 				<div class="ibox-body">
 					<div class="fixed-table-toolbar">
 						<div class="columns pull-left">
-							<button shiro:hasPermission="coach:coachClub:add" type="button" class="btn  btn-primary" onclick="add()">
+							<button shiro:hasPermission="coach:coach:add" type="button" class="btn  btn-primary hide" onclick="add()">
 								<i class="fa fa-plus" aria-hidden="true"></i>添加
 							</button>
-							<button shiro:hasPermission="coach:coachClub:batchRemove" type="button" class="btn  btn-danger"
+							<button shiro:hasPermission="coach:coach:batchRemove" type="button" class="btn  btn-danger"
 								onclick="batchRemove()">
 								<i class="fa fa-trash" aria-hidden="true"></i>删除
 							</button>
@@ -39,23 +40,23 @@
 				var s_resetPwd_h = 'hidden';
 			</script>
 		</div>
-		<div shiro:hasPermission="coach:coachClub:edit">
+		<div shiro:hasPermission="coach:coach:edit">
 			<script type="text/javascript">
 				s_edit_h = '';
 			</script>
 		</div>
-		<div shiro:hasPermission="coach:coachClub:remove">
+		<div shiro:hasPermission="coach:coach:remove">
 			<script type="text/javascript">
 				s_remove_h = '';
 			</script>
 		</div>
-		<div shiro:hasPermission="coach:coachClub:resetPwd">
+		<div shiro:hasPermission="coach:coach:resetPwd">
 			<script type="text/javascript">
 				s_resetPwd_h = '';
 			</script>
 		</div>
 	</div>
 	<div th:include="include :: footer"></div>
-	<script type="text/javascript" src="/js/appjs/coach/coachClub/coachClub.js"></script>
+	<script type="text/javascript" src="/js/appjs/coach/coach/coach.js"></script>
 </body>
 </html>

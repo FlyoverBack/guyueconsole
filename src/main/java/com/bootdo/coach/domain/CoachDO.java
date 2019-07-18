@@ -7,11 +7,11 @@ import java.util.Date;
 
 
 /**
- * 会员信息表
+ * 教练信息表
  * 
  * @author ybbbbbbb
  * @email ybbbbbbb@qq.com
- * @date 2019-06-22 09:22:03
+ * @date 2019-07-12 13:39:16
  */
 public class CoachDO implements Serializable {
 	private static final long serialVersionUID = 1L;

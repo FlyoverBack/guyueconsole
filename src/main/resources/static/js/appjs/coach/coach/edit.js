@@ -1,14 +1,53 @@
-var prefix = "/coach/coachClub"
+var prefix = "/coach/coach"
+// var coach_type = "";
+// var coach_status = "";
 $(function () {
-    load();
+    // coach_type = initDictByType("coachType");
+    // coach_status = initDictByType("coachStatus");
+    loadcourse();
+});
+$().ready(function() {
+	validateRule();
 });
 
-function load() {
-    $('#exampleTable')
+$.validator.setDefaults({
+	submitHandler : function() {
+		update();
+	}
+});
+function update() {
+	$.ajax({
+		cache : true,
+		type : "POST",
+		url : "/coach/coach/update",
+		data : $('#signupForm').serialize(),// 你的formid
+		async : false,
+		error : function(request) {
+			parent.layer.alert("Connection error");
+		},
+		success : function(data) {
+			if (data.code == 0) {
+				parent.layer.msg("操作成功");
+				parent.reLoad();
+				var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+				parent.layer.close(index);
+
+			} else {
+				parent.layer.alert(data.msg)
+			}
+
+		}
+	});
+
+}
+
+function loadcourse() {
+	debugger;
+    $('#courseTable')
         .bootstrapTable(
             {
                 method: 'get', // 服务器数据的请求方式 get or post
-                url: prefix + "/list", // 服务器数据的加载地址
+                url: prefix + "/courseList", // 服务器数据的加载地址
                 //	showRefresh : true,
                 //	showToggle : true,
                 //	showColumns : true,
@@ -31,8 +70,8 @@ function load() {
                     return {
                         //说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
                         limit: params.limit,
-                        offset: params.offset
-                        // name:$('#searchName').val(),
+                        offset: params.offset,
+                        coach_id:$('#coachId').val()
                         // username:$('#searchName').val()
                     };
                 },
@@ -47,63 +86,30 @@ function load() {
                         checkbox: true
                     },
                     {
+                        field: 'courseId',
+                        title: '课程ID',
                         visible: false,
-                        field: 'coachId',
-                        title: '教练ID',
                         align: 'center'
                     },
                     {
-                        field: 'coachName',
-                        title: '姓名',
+                        field: 'courseName',
+                        title: '课程名称',
                         align: 'center'
                     },
                     {
-                        field: 'tel',
-                        title: '电话',
+                        field: 'price',
+                        title: '价格（元）',
                         align: 'center'
                     },
                     {
-                        field: 'nickName',
-                        title: '昵称',
+                        field: 'clubId',
+                        title: '场地ID',
                         align: 'center'
-                    },
-                    {
-                        field: 'type',
-                        title: '教练类别',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            if(value == "0"){
-                                return "平台教练";
-                            }else if(value == "1"){
-                                return "场地教练";
-                            }else{
-                                return "-"
-                            }
-                        }
                     },
                     {
                         field: 'clubName',
-                        title: '店名名称1',
+                        title: '上课店面',
                         width: 300,
-                        align: 'center'
-                    },
-                    {
-                        field: 'status',
-                        title: '状态',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            if(value == "0"){
-                                return "已注册";
-                            }else if(value == "1"){
-                                return "离职";
-                            }else{
-                                return "-"
-                            }
-                        }
-                    },
-                    {
-                        field: 'registrationTime',
-                        title: '注册时间',
                         align: 'center'
                     },
                     {
@@ -112,33 +118,16 @@ function load() {
                         align: 'center',
                         formatter: function (value, row, index) {
                             var e = '<a class="btn btn-primary btn-sm ' + s_edit_h + '" href="#" mce_href="#" title="编辑" onclick="edit(\''
-                                + row.coachId
+                                + row.courseId
                                 + '\')"><i class="fa fa-edit"></i></a> ';
                             var d = '<a class="btn btn-warning btn-sm ' + s_remove_h + '" href="#" title="删除"  mce_href="#" onclick="remove(\''
-                                + row.coachId
+                                + row.courseId
                                 + '\')"><i class="fa fa-remove"></i></a> ';
-                            var f = '<a class="btn btn-success btn-sm" href="#" title="备用"  mce_href="#" onclick="resetPwd(\''
-                                + row.coachId
-                                + '\')"><i class="fa fa-key"></i></a> ';
                             return e + d;
                         }
-                    }]
+                    }
+				]
             });
-}
-
-function reLoad() {
-    $('#exampleTable').bootstrapTable('refresh');
-}
-
-function add() {
-    layer.open({
-        type: 2,
-        title: '增加',
-        maxmin: true,
-        shadeClose: false, // 点击遮罩关闭层
-        area: ['800px', '520px'],
-        content: prefix + '/add' // iframe的url
-    });
 }
 
 function edit(id) {
@@ -148,7 +137,7 @@ function edit(id) {
         maxmin: true,
         shadeClose: false, // 点击遮罩关闭层
         area: ['800px', '520px'],
-        content: prefix + '/edit/' + id // iframe的url
+        content: prefix + '/courseedit/' + id // iframe的url
     });
 }
 
@@ -157,7 +146,7 @@ function remove(id) {
         btn: ['确定', '取消']
     }, function () {
         $.ajax({
-            url: prefix + "/remove",
+            url: prefix + "/courseremove",
             type: "post",
             data: {
                 'coachId': id
@@ -174,40 +163,18 @@ function remove(id) {
     })
 }
 
-function resetPwd(id) {
-}
-
-function batchRemove() {
-    var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
-    if (rows.length == 0) {
-        layer.msg("请选择要删除的数据");
-        return;
-    }
-    layer.confirm("确认要删除选中的'" + rows.length + "'条数据吗?", {
-        btn: ['确定', '取消']
-        // 按钮
-    }, function () {
-        var ids = new Array();
-        // 遍历所有选择的行数据，取每条数据对应的ID
-        $.each(rows, function (i, row) {
-            ids[i] = row['coachId'];
-        });
-        $.ajax({
-            type: 'POST',
-            data: {
-                "ids": ids
-            },
-            url: prefix + '/batchRemove',
-            success: function (r) {
-                if (r.code == 0) {
-                    layer.msg(r.msg);
-                    reLoad();
-                } else {
-                    layer.msg(r.msg);
-                }
-            }
-        });
-    }, function () {
-
-    });
+function validateRule() {
+	var icon = "<i class='fa fa-times-circle'></i> ";
+	$("#signupForm").validate({
+		rules : {
+			name : {
+				required : true
+			}
+		},
+		messages : {
+			name : {
+				required : icon + "请输入名字"
+			}
+		}
+	})
 }

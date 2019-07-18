@@ -8,18 +8,20 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 会员信息表
+ * 教练信息表
  * @author ybbbbbbb
  * @email ybbbbbbb@qq.com
- * @date 2019-06-22 09:22:03
+ * @date 2019-07-12 13:39:16
  */
 @Mapper
 public interface CoachDao {
 
 	CoachDO get(String coachId);
 	
-	List<CoachDO> list(Map<String, Object> map);
-	
+	List<Map<String,Object>> list(Map<String, Object> map);
+
+	List<Map<String,Object>> courseList(Map<String, Object> map);
+
 	int count(Map<String, Object> map);
 	
 	int save(CoachDO coach);

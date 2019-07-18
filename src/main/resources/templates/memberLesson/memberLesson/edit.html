@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="signupForm">
+                        <input id="memId" name="memId" th:value="${memberLesson.memId}" type="hidden">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">课程编号：</label>
+                            <div class="col-sm-8">
+                                <input id="saleId" name="saleId" th:value="${memberLesson.saleId}" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">序号：</label>
+                            <div class="col-sm-8">
+                                <input id="seqNo" name="seqNo" th:value="${memberLesson.seqNo}" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">场地id：</label>
+                            <div class="col-sm-8">
+                                <input id="clubId" name="clubId" th:value="${memberLesson.clubId}" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">状态：</label>
+                            <div class="col-sm-8">
+                                <input id="status" name="status" th:value="${memberLesson.status}" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">开始时间：</label>
+                            <div class="col-sm-8">
+                                <input id="startTime1" name="startTime1" th:value="${memberLesson.startTime1}"
+                                       class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">结束时间：</label>
+                            <div class="col-sm-8">
+                                <input id="endTime1" name="endTime1" th:value="${memberLesson.endTime1}"
+                                       class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">实际开始时间：</label>
+                            <div class="col-sm-8">
+                                <input id="startTime2" name="startTime2" th:value="${memberLesson.startTime2}"
+                                       class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">实际结束时间：</label>
+                            <div class="col-sm-8">
+                                <input id="endTime2" name="endTime2" th:value="${memberLesson.endTime2}"
+                                       class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">教练id：</label>
+                            <div class="col-sm-8">
+                                <input id="coachId" name="coachId" th:value="${memberLesson.coachId}"
+                                       class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">上课场地：</label>
+                            <div class="col-sm-8">
+                                <input id="realClub" name="realClub" th:value="${memberLesson.realClub}"
+                                       class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">上课教练：</label>
+                            <div class="col-sm-8">
+                                <input id="realCoach" name="realCoach" th:value="${memberLesson.realCoach}"
+                                       class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">备注1：</label>
+                            <div class="col-sm-8">
+                                <input id="bz1" name="bz1" th:value="${memberLesson.bz1}" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">备注2：</label>
+                            <div class="col-sm-8">
+                                <input id="bz2" name="bz2" th:value="${memberLesson.bz2}" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">更新时间：</label>
+                            <div class="col-sm-8">
+                                <input id="chTime" name="chTime" th:value="${memberLesson.chTime}" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">课程id：</label>
+                            <div class="col-sm-8">
+                                <input id="kcId" name="kcId" th:value="${memberLesson.kcId}" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">价格：</label>
+                            <div class="col-sm-8">
+                                <input id="price" name="price" th:value="${memberLesson.price}" class="form-control"
+                                       type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-3">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript" src="/js/appjs/memberLesson/memberLesson/edit.js">
+</script>
+</body>
+</html>

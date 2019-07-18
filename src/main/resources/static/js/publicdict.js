@@ -14,8 +14,10 @@ function initDictByType(type) {
 	return result;
 }
 
+
 /**
-数据字典公共转换方法，传入类型值，返回对应的标数信息
+ Form
+ 数据字典公共转换方法，传入类型值，返回对应的标数信息
  //加载各数据字典
  id:数据字典中的类型；value：页面中的name；type页面标签的类型(类型主要为select,radio,checkbox,selectpicker)
  var datalist = [
