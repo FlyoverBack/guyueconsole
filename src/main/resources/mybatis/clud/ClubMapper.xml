@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.club.dao.ClubDao">
+
+	
+	 <select id="selectList"  resultType="com.bootdo.club.domain.ClubResDo" >
+		SELECT
+			a.club_Id AS clubId,
+			a.`name` AS clubName,
+			b.user_name AS coachName,
+			b.tel AS tel,
+			b.nick_name AS nickName,
+			a.type AS clubType,
+		    a.address AS address,
+			a.`status` AS clubStatus,
+			 a.club_tc_type   as clubTcType,
+			 a.club_tc   as clubTc,
+			a.create_time AS registrationTime
+		FROM
+			club AS a
+		LEFT JOIN `user` AS b ON a.club_Id = b.id
+		where 1=1
+		<if test="queryName!=null and queryName!=''">
+			and  (
+			a.name like CONCAT('%',#{queryName},'%')
+			 <if test=" clubIds != null and clubIds.size>0">
+				or a.club_Id  in
+				 <foreach collection="clubIds" item="item" index="index"
+						  open="(" close=")" separator=",">
+					 #{item}
+				 </foreach>
+			 </if>
+			)
+		</if>
+		 <if test="locationId!=null and locationId!=''">
+            and  location_id =#{locationId}
+		 </if>
+		 <if test="creatStartTime!=null and creatStartTime!=''">
+			 and  create_time <![CDATA[ >= ]]>#{creatStartTime}
+		 </if>
+		 <if test="creatEndTime!=null and creatEndTime!=''">
+			 and  create_time <![CDATA[ <= ]]>#{creatEndTime}
+		 </if>
+		 <if test="status!=null and status!=''">
+			 and  status =#{status}
+		 </if>
+		 <if test="offset != null and limit != null">
+			 limit #{offset}, #{limit}
+		 </if>
+	 </select>
+
+
+
+	<select id="selectCount"  resultType="java.lang.Integer" >
+		SELECT
+		count(1)
+		FROM
+		club AS a
+		LEFT JOIN `user` AS b ON a.club_Id = b.id
+		where 1=1
+		<if test="queryName!=null and queryName!=''">
+			and  (
+			a.name like CONCAT('%',#{queryName},'%')
+			<if test=" clubIds != null and clubIds.size>0">
+				or a.club_Id  in
+				<foreach collection="clubIds" item="item" index="index"
+						 open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			</if>
+			)
+		</if>
+		<if test="locationId!=null and locationId!=''">
+			and  location_id =#{locationId}
+		</if>
+		<if test="creatStartTime!=null and creatStartTime!=''">
+			and  create_time <![CDATA[ >= ]]>#{creatStartTime}
+		</if>
+		<if test="creatEndTime!=null and creatEndTime!=''">
+			and  create_time <![CDATA[ <= ]]>#{creatEndTime}
+		</if>
+		<if test="status!=null and status!=''">
+			and  status =#{status}
+		</if>
+	</select>
+
+
+
+	<select id="getById"  resultType="com.bootdo.club.domain.ClubResDo" >
+		SELECT
+				a.club_Id as clubId,
+				a.`name` as clubName,
+				b.real_name as coachName ,
+				b.tel as tel ,
+				a.icon as icon ,
+				b.nick_name  as nickName,
+				a.type as clubType,
+				a.`status` as clubStatus,
+				a.create_time as  registrationTime,
+        a.tel as  clubTel ,
+        a.open_time   as openTime,
+        a.close_time   as closeTime,
+        a.address   as address,
+        a.la   as la,
+        a.lo   as lo,
+        a.jcss   as jcss,
+        a.area   as area,
+        a.club_tc_type   as clubTcType,
+        a.club_tc   as clubTc,
+        a.business_type   as businessType,
+        a.photo   as photo
+		FROM
+			club AS a
+		LEFT JOIN `user` AS b ON a.club_Id = b.id
+        where  a.club_Id =#{clubId}
+
+
+	</select>
+
+
+	<update id="updateClubById" parameterType="com.bootdo.club.domain.ClubResDo">
+		update club
+		<set>
+			<if test="clubName != null">`name` = #{clubName}, </if>
+			<if test="clubStatus != null">`status` = #{clubStatus}, </if>
+			<if test="area != null">`area` = #{area}, </if>
+			<if test="clubTel != null">`tel` = #{clubTel}, </if>
+			<if test="la != null and la!=''">`la` = #{la}, </if>
+			<if test="lo != null and lo!=''">`lo` = #{lo}, </if>
+			<if test="icon != null and icon!=''">`icon` = #{icon}, </if>
+			<if test="address != null and address!=''">`address` = #{address}, </if>
+			<if test="photo != null and photo!=''">`photo` = #{photo}, </if>
+			<if test="clubType != null">`type` = #{clubType}, </if>
+			<if test="openTime != null and openTime!=''">`open_time` = #{openTime}, </if>
+			<if test="closeTime != null and closeTime!=''">`close_time` =  #{closeTime}, </if>
+			<if test="businessType != null and businessType!=''">`business_type` = #{businessType}, </if>
+			<if test="registrationTime != null and  registrationTime!=''">`create_time` =  #{registrationTime}, 'YYYY/MM/DD hh:mm:ss' ), </if>
+			<if test="jcss != null and jcss!=''">`jcss` = #{jcss}, </if>
+			<if test="clubTcType != null ">`club_tc_type` = #{clubTcType}, </if>
+			<if test="clubStatus != null and clubStatus!=''">`status` = #{clubStatus}, </if>
+			<if test="clubTc != null">`club_tc` = #{clubTc}</if>
+		</set>
+		where club_Id = #{clubId}
+	</update>
+
+
+	
+</mapper>
