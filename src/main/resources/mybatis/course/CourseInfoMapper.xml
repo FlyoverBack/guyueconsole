@@ -136,4 +136,18 @@
 		</foreach>
 	</delete>
 
+
+	<select id="getCourseType" resultType="com.bootdo.base.domain.KeyValueBeanVo" >
+     select  course_id as 'key',
+              name as  value
+              FROM course
+              where 1=1
+              <if test="clubId!=null  and  clubId!= ''">
+				  and  club_id =#{clubId}
+			  </if>
+              GROUP BY course_id ,name
+
+
+
+	</select>
 </mapper>
