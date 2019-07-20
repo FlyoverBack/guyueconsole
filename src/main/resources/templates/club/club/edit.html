@@ -68,7 +68,6 @@
 								</div>
 							</div>
 
-							<center><a href="#" class="flatbtn" id="modaltrigger">Modal Login</a></center>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">联系电话：</label>
 								<div class="col-sm-8">
@@ -130,7 +129,7 @@
 											 th:each ="box : ${courseTypes}"
 											 th:value="${box.key}"
 											 th:text ="${box.value}"
-										th:attr ="checked=${clubDo.courseTypes.contains(box.key)?true:false}" />
+										th:attr ="checked=${clubDo.courseTypes.contains(box.key)?true:false}" disabled="disabled" />
 								</div>
 							</div>
 
@@ -188,18 +187,6 @@
 	</div>
 	</div>
 
-	<div id="loginmodal" style="display:none;">
-		<h1>User Login</h1>
-		<form id="loginform" name="loginform" method="post" action="index.html">
-			<label for="username">Username:</label>
-			<input type="text" name="username" id="username" class="txtfield" tabindex="1">
-
-			<label for="password">Password:</label>
-			<input type="password" name="password" id="password" class="txtfield" tabindex="2">
-
-			<div class="center"><input type="submit" name="loginbtn" id="loginbtn" class="flatbtn-blu hidemodal" value="Log In" tabindex="3"></div>
-		</form>
-	</div>
 
 	<div th:include="include::footer"></div>
 	<script type="text/javascript" src="/js/appjs/club/club/edit.js">
