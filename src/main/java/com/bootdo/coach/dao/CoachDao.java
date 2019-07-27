@@ -1,11 +1,13 @@
 package com.bootdo.coach.dao;
 
+import com.bootdo.base.domain.KeyValueBeanVo;
 import com.bootdo.coach.domain.CoachDO;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 教练信息表
@@ -31,4 +33,8 @@ public interface CoachDao {
 	int remove(String coach_Id);
 	
 	int batchRemove(String[] coachIds);
+
+    List<KeyValueBeanVo> getListByIds(@Param("coachIds") List<String> coachIds);
+
+    List<KeyValueBeanVo> getCoachAll();
 }

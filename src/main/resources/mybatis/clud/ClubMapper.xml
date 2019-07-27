@@ -140,10 +140,63 @@
 			<if test="clubTcType != null ">`club_tc_type` = #{clubTcType}, </if>
 			<if test="clubStatus != null and clubStatus!=''">`status` = #{clubStatus}, </if>
 			<if test="clubTc != null">`club_tc` = #{clubTc}</if>
+
 		</set>
 		where club_Id = #{clubId}
 	</update>
 
 
-	
+	<select id="getListByIds"  resultType="com.bootdo.club.domain.Club" >
+           select
+             club_Id as clubId,
+             name as clubName
+		from  club
+             where 1=1
+			and  club_Id  in
+			<foreach collection="clubIds" item="item" index="index"
+					 open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+
+	</select>
+
+
+	<select id="getClubById"  resultType="com.bootdo.club.domain.Club" >
+		select
+		club_Id as clubId,
+		name as clubName
+		from  club
+		where club_Id  =#{clubId}
+
+
+	</select>
+
+	<select id="getClubByAll"  resultType="com.bootdo.base.domain.KeyValueBeanVo" >
+
+		SELECT
+		club_Id AS 'key',
+		`name` AS 'value'
+		FROM
+			club
+		WHERE
+			`status` = 2
+		GROUP BY
+			club_Id,
+			`name`
+
+</select>
+
+
+	<select id="queryClubByName"  resultType="java.lang.String" >
+
+		SELECT
+		club_Id
+		FROM
+		club
+		WHERE
+		name like CONCAT('%',#{clubName},'%')
+
+	</select>
+
+
 </mapper>

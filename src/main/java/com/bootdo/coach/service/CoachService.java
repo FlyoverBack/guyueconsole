@@ -1,5 +1,6 @@
 package com.bootdo.coach.service;
 
+import com.bootdo.base.domain.KeyValueBeanVo;
 import com.bootdo.coach.domain.CoachDO;
 
 import java.util.List;
@@ -29,4 +30,6 @@ public interface CoachService {
 	int remove(String coachId);
 	
 	int batchRemove(String[] coachIds);
+
+    List<KeyValueBeanVo> getCoachAll();
 }

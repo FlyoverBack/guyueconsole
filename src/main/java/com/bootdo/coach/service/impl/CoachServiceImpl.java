@@ -1,5 +1,6 @@
 package com.bootdo.coach.service.impl;
 
+import com.bootdo.base.domain.KeyValueBeanVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,5 +57,10 @@ public class CoachServiceImpl implements CoachService {
 	public int batchRemove(String[] coachIds){
 		return coachDao.batchRemove(coachIds);
 	}
-	
+
+	@Override
+	public List<KeyValueBeanVo> getCoachAll() {
+		return coachDao.getCoachAll();
+	}
+
 }

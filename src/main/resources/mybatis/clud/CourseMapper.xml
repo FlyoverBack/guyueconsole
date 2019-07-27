@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.club.dao.CourseDao">
+
+	<select id="get" resultType="com.bootdo.club.domain.CourseDO">
+		select `course_id`,`type`,`name`,`price`,`discount`,`status`,`coach_id`,`coach_type`,`club_id`,`club_type`,`try_flag`,`bz2`,`bz1`,`update_time`,`update_user`,`create_time`,`create_user` from course where course_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.club.domain.CourseDO">
+		select `course_id`,`type`,`name`,`price`,`discount`,`status`,`coach_id`,`coach_type`,`club_id`,`club_type`,`try_flag`,`bz2`,`bz1`,`update_time`,`update_user`,`create_time`,`create_user` from course
+        <where>  
+		  		  <if test="courseId != null and courseId != ''"> and course_id = #{courseId} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="price != null and price != ''"> and price = #{price} </if>
+		  		  <if test="discount != null and discount != ''"> and discount = #{discount} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="coachId != null and coachId != ''"> and coach_id = #{coachId} </if>
+		  		  <if test="coachType != null and coachType != ''"> and coach_type = #{coachType} </if>
+		  		  <if test="clubType != null and clubType != ''"> and club_type = #{clubType} </if>
+		  		  <if test="tryFlag != null and tryFlag != ''"> and try_flag = #{tryFlag} </if>
+		  		  <if test="bz2 != null and bz2 != ''"> and bz2 = #{bz2} </if>
+		  		  <if test="bz1 != null and bz1 != ''"> and bz1 = #{bz1} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateUser != null and updateUser != ''"> and update_user = #{updateUser} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
+			      <if test="clubIds != null and clubIds.size>0">
+					and 	club_id in
+						<foreach collection="clubIds" item="item" index="index"
+								 open="(" close=")" separator=",">
+							#{item}
+						</foreach>
+					</if>
+
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by course_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from course
+		 <where>  
+		  		  <if test="courseId != null and courseId != ''"> and course_id = #{courseId} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="price != null and price != ''"> and price = #{price} </if>
+		  		  <if test="discount != null and discount != ''"> and discount = #{discount} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="coachId != null and coachId != ''"> and coach_id = #{coachId} </if>
+		  		  <if test="coachType != null and coachType != ''"> and coach_type = #{coachType} </if>
+		  		  <if test="clubId != null and clubId != ''"> and club_id = #{clubId} </if>
+		  		  <if test="clubType != null and clubType != ''"> and club_type = #{clubType} </if>
+		  		  <if test="tryFlag != null and tryFlag != ''"> and try_flag = #{tryFlag} </if>
+		  		  <if test="bz2 != null and bz2 != ''"> and bz2 = #{bz2} </if>
+		  		  <if test="bz1 != null and bz1 != ''"> and bz1 = #{bz1} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateUser != null and updateUser != ''"> and update_user = #{updateUser} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createUser != null and createUser != ''"> and create_user = #{createUser} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.club.domain.CourseDO">
+		insert into course
+		(
+			`course_id`,
+			`type`,
+			`name`, 
+			`price`, 
+			`discount`, 
+			`status`, 
+			`coach_id`, 
+			`coach_type`, 
+			`club_id`, 
+			`club_type`, 
+			`try_flag`, 
+			`create_time`
+		)
+		values
+		(
+			#{courseId},
+			#{type},
+			#{name}, 
+			#{price}, 
+			#{discount}, 
+			#{status}, 
+			#{coachId}, 
+			#{coachType}, 
+			#{clubId}, 
+			#{clubType}, 
+			#{tryFlag}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.club.domain.CourseDO">
+		update course 
+		<set>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="price != null">`price` = #{price}, </if>
+			<if test="discount != null">`discount` = #{discount}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="coachId != null">`coach_id` = #{coachId}, </if>
+			<if test="coachType != null">`coach_type` = #{coachType}, </if>
+			<if test="clubId != null">`club_id` = #{clubId}, </if>
+			<if test="clubType != null">`club_type` = #{clubType}, </if>
+			<if test="tryFlag != null">`try_flag` = #{tryFlag}, </if>
+			<if test="bz2 != null">`bz2` = #{bz2}, </if>
+			<if test="bz1 != null">`bz1` = #{bz1}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="updateUser != null">`update_user` = #{updateUser}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}</if>
+		</set>
+		where course_id = #{courseId}
+	</update>
+	
+	<delete id="remove">
+		delete from course where course_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from course where course_id in 
+		<foreach item="courseId" collection="array" open="(" separator="," close=")">
+			#{courseId}
+		</foreach>
+	</delete>
+
+
+	<select id="queryCoach"  resultType="java.lang.Integer"  >
+		SELECT
+			 type
+		FROM
+		course
+		where club_id=#{clubId}
+		GROUP BY type
+	</select>
+
+
+	<select id="queryClubCoach"  resultType="com.bootdo.base.domain.KeyValueBeanVo"  >
+		SELECT
+			course_type as 'key',
+			course_name as 'value'
+		FROM
+			course_info
+		GROUP BY
+
+			course_type,
+			course_name
+	</select>
+
+</mapper>

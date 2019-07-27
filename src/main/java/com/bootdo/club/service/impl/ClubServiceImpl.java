@@ -138,4 +138,9 @@ public class ClubServiceImpl implements ClubService {
     public List<KeyValueBeanVo> getCourseType() {
         return  courseInfoDao.getCourseType(null);
     }
+
+    @Override
+    public List<KeyValueBeanVo> getClubByAll() {
+        return clubDao.getClubByAll();
+    }
 }

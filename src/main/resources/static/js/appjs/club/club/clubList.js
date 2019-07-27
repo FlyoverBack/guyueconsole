@@ -152,3 +152,29 @@ function edit(id) {
         content: prefix + '/edit/' + id // iframe的url
     });
 }
+
+layui.use('upload', function () {
+    var upload = layui.upload;
+    //执行实例
+    var uploadInst = upload.render({
+        elem: '#uploadBtn' //绑定元素
+        , url: '/upload/setFileUpload' //上传接口
+        , multiple: true
+        , before: function (obj) {
+            //可设置回显
+            console.log(obj)
+        }
+        , done: function (res) {
+            console.log(res);
+            //上传完毕回调
+            if (res.code != 1000) {
+                return layer.msg('上传失败');
+            } else {
+                return layer.msg('上传成功');
+            }
+        }
+        , error: function () {
+            //请求异常回调
+        }
+    });
+});
