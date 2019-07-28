@@ -129,5 +129,33 @@
 			#{coachId}
 		</foreach>
 	</delete>
+	<select id="getListByIds"  resultType="com.bootdo.base.domain.KeyValueBeanVo" >
+		select
+		coach_Id AS 'key',
+		name AS value
+		from  coach
+		where 1=1
+		and  coach_Id  in
+		<foreach collection="coachIds" item="item" index="index"
+				 open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+
+	</select>
+
+	<select id="getCoachAll" resultType="com.bootdo.base.domain.KeyValueBeanVo">
+       SELECT
+			coach_Id as 'key',
+			`name` as 'value'
+		FROM
+			coach
+		GROUP BY
+			coach_Id,
+			`name`
+
+	</select>
+
+
+
 
 </mapper>

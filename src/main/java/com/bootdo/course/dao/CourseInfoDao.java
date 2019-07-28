@@ -33,4 +33,5 @@ public interface CourseInfoDao {
 	int batchRemove(String[] courseTypes);
 
     List<KeyValueBeanVo> getCourseType(@Param("clubId") String clubId);
+
 }

@@ -23,4 +23,6 @@ public interface ClubService {
     R updateClubDetails(ClubResDo clubDo);
 
     List<KeyValueBeanVo> getCourseType();
+
+    List<KeyValueBeanVo> getClubByAll();
 }
