@@ -3,6 +3,8 @@ package com.bootdo.coach.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.bootdo.common.domain.DictDO;
+import com.bootdo.common.service.DictService;
 import com.bootdo.common.utils.CommParams;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -39,6 +41,8 @@ public class CoachController {
 
 	@Autowired
 	private CoachService coachService;
+	@Autowired
+	private DictService dictService;
 	
 	@GetMapping()
 	@RequiresPermissions("coach:coach:coach")
@@ -84,8 +88,32 @@ public class CoachController {
 	@RequiresPermissions("coach:coach:edit")
 	String edit(@PathVariable("coachId") String coachId,Model model){
 		CoachDO coach = coachService.get(coachId);
-		coach.setIcon(CommParams.WEB_URL+coach.getIcon().replace("/app/test",""));
+		List<DictDO> dictTypes = dictService.listByType("coachType");
+		List<DictDO> dictStatuses = dictService.listByType("coachStatus");
+		Integer type = coach.getType();
+		Integer status = coach.getStatus();
+		for (DictDO dictType:dictTypes){
+			logger.info("type:"+type+"-----"+"dictType.getValue():"+dictType.getValue());
+			if(String.valueOf(type).trim().equals(dictType.getValue().trim())){
+				dictType.setRemarks("checked");
+			}
+		}
+		for (DictDO dictStatus:dictStatuses){
+			if(String.valueOf(status).equals(dictStatus.getValue())){
+				dictStatus.setRemarks("checked");
+			}
+		}
+		if(null!=coach.getIcon()){
+			coach.setIcon(CommParams.WEB_URL+coach.getIcon().replace("/app/test",""));
+		}
+//		logger.info("sexList:"+dictService.getSexList().toString());
+//		logger.info("coach:"+coach.toString());
+		logger.info("dictTypes:"+dictTypes.toString());
+		logger.info("dictStatuses:"+dictStatuses.toString());
 		model.addAttribute("coach", coach);
+		model.addAttribute("sexList",dictService.getSexList());
+		model.addAttribute("dictTypes",dictTypes);
+		model.addAttribute("dictStatuses",dictStatuses);
 	    return "coach/coach/edit";
 	}
 	

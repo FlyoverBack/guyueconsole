@@ -2,8 +2,12 @@ var prefix = "/coach/coach"
 // var coach_type = "";
 // var coach_status = "";
 $(function () {
-    // coach_type = initDictByType("coachType");
-    // coach_status = initDictByType("coachStatus");
+    var datalist = [
+        //{id:"sex",value:"sex",type:"radio"},
+        {id:"coachType",value:"type",type:"select"},
+        {id:"coachStatus",value:"status",type:"select"}
+    ]
+    //returnInitDict(datalist);
     loadcourse();
 });
 $().ready(function() {
